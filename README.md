@@ -398,15 +398,3 @@ FastAPI
         +
 Web UI
 
-
----
-
-
-## After creating it
-
-
-Run:
-
-
-```powershell
-Get-ChildItem README.md,.env.example
