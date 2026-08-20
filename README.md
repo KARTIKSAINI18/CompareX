@@ -8,7 +8,11 @@ The system combines semantic product search, requirement extraction, recommendat
 
 
 
-https://github.com/user-attachments/assets/1cf16892-fb77-47d5-a239-442cbabe85a3
+
+
+
+https://github.com/user-attachments/assets/35304381-98b4-4297-98e1-26329c1e72a9
+
 
 
 
