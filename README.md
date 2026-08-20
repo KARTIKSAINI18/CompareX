@@ -8,6 +8,13 @@ The system combines semantic product search, requirement extraction, recommendat
 
 ---
 
+<img width="1898" height="796" alt="Screenshot 2026-08-20 141004" src="https://github.com/user-attachments/assets/cc6ce191-b2c8-4f98-9e24-058a3fd96918" />
+
+<img width="730" height="790" alt="Screenshot 2026-08-20 141027" src="https://github.com/user-attachments/assets/0a3a6940-5b9c-4008-b5a2-fc17e7d97ac1" />
+
+<img width="728" height="505" alt="Screenshot 2026-08-20 141037" src="https://github.com/user-attachments/assets/c79bfaac-be7d-440a-a5ee-07f6813bf7a2" />
+
+
 ## Features
 
 - Natural-language product search
