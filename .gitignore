@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Conda
+.conda/
+
+# Environment variables
+.env
+
+# IDE
+.vscode/
+# Python packaging
+*.egg-info/
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Data generated locally
+data/processed/
+
+# Logs
+*.log
+logs/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Large raw datasets
+data/raw/amazon/
+
+# Generated project reference files
+api_files.txt

@@ -1,0 +1,62 @@
+[
+  {
+    "product_id": "phone_001",
+    "name": "Galaxy S24",
+    "brand": "Samsung",
+    "category": "Smartphone",
+    "description": "A compact flagship smartphone with a high quality display, strong performance and versatile cameras.",
+    "specifications": {
+      "RAM": "8GB",
+      "Storage": "256GB",
+      "Processor": "Snapdragon 8 Gen 3",
+      "Display": "6.2 inch AMOLED",
+      "Camera": "50MP main camera",
+      "Battery": "4000mAh"
+    },
+    "price": 64999,
+    "currency": "INR",
+    "rating": 4.5,
+    "review_count": 1250,
+    "source": "sample"
+  },
+  {
+    "product_id": "phone_002",
+    "name": "OnePlus 12",
+    "brand": "OnePlus",
+    "category": "Smartphone",
+    "description": "A performance focused smartphone with a large AMOLED display, powerful processor and large battery.",
+    "specifications": {
+      "RAM": "12GB",
+      "Storage": "256GB",
+      "Processor": "Snapdragon 8 Gen 3",
+      "Display": "6.82 inch AMOLED",
+      "Camera": "50MP main camera",
+      "Battery": "5400mAh"
+    },
+    "price": 59999,
+    "currency": "INR",
+    "rating": 4.4,
+    "review_count": 980,
+    "source": "sample"
+  },
+  {
+    "product_id": "phone_003",
+    "name": "iPhone 15",
+    "brand": "Apple",
+    "category": "Smartphone",
+    "description": "A premium smartphone with a powerful processor, high quality camera system and compact design.",
+    "specifications": {
+      "RAM": "6GB",
+      "Storage": "128GB",
+      "Processor": "A16 Bionic",
+      "Display": "6.1 inch OLED",
+      "Camera": "48MP main camera",
+      "Battery": "3349mAh"
+    },
+    "price": 69999,
+    "currency": "INR",
+    "rating": 4.6,
+    "review_count": 1500,
+    "source": "sample"
+  }
+]

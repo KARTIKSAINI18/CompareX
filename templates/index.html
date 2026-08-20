@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CompareX — AI Product Assistant</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/style.css"
+    >
+</head>
+
+<body>
+
+<div class="app">
+
+    <header class="header">
+        <div class="header-inner">
+            <div class="brand">
+                <div class="brand-mark">X</div>
+
+                <div>
+                    <h1>CompareX</h1>
+                    <p>AI Product Comparison & Recommendation Assistant</p>
+                </div>
+            </div>
+
+            <div class="status">
+                <span class="status-dot"></span>
+                AI Assistant
+            </div>
+        </div>
+    </header>
+
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-badge">
+                AI-powered product intelligence
+            </div>
+
+            <h2>
+                Find the right product,
+                <span>without the guesswork.</span>
+            </h2>
+
+            <p class="hero-description">
+                Search products, compare specifications, get recommendations,
+                and ask questions about product documentation.
+            </p>
+
+
+            <div class="query-box">
+
+                <textarea
+                    id="query"
+                    placeholder="Ask something like: Recommend a Samsung phone under ₹30,000 with a good camera"
+                    rows="4"
+                ></textarea>
+
+                <div class="query-footer">
+
+                    <span class="query-hint">
+                        Ask naturally — CompareX will understand your requirements.
+                    </span>
+
+                    <button
+                        id="ask-button"
+                        onclick="askCompareX()"
+                    >
+                        Ask CompareX
+                        <span class="button-arrow">→</span>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="examples">
+
+                <span class="examples-label">
+                    Try an example
+                </span>
+
+                <button onclick="useExample(this)">
+                    Largest battery
+                </button>
+
+                <button onclick="useExample(this)">
+                    Samsung phone with good camera
+                </button>
+
+                <button onclick="useExample(this)">
+                    S24 manual battery usage
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <section
+            id="loading"
+            class="loading hidden"
+        >
+
+            <div class="loading-card">
+
+                <div class="spinner"></div>
+
+                <div>
+                    <strong>CompareX is working</strong>
+                    <p>
+                        Understanding your request and finding relevant information...
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section
+            id="error"
+            class="error hidden"
+        ></section>
+
+
+        <section
+            id="answer-section"
+            class="result-section hidden"
+        >
+
+            <div class="section-heading">
+                <span class="section-eyebrow">RESULT</span>
+                <h2>Your CompareX result</h2>
+            </div>
+
+
+            <div class="card answer-card">
+
+                <div class="card-header">
+                    <div class="card-icon">✦</div>
+
+                    <div>
+                        <span class="card-eyebrow">AI ANALYSIS</span>
+                        <h2>AI Answer</h2>
+                    </div>
+                </div>
+
+                <div id="answer"></div>
+
+            </div>
+
+
+            <div
+                id="products-card"
+                class="card hidden"
+            >
+
+                <div class="card-header">
+
+                    <div class="card-icon product-icon">▦</div>
+
+                    <div>
+                        <span class="card-eyebrow">MATCHED PRODUCTS</span>
+                        <h2>Relevant Products</h2>
+                    </div>
+
+                </div>
+
+                <div id="products" class="products-grid"></div>
+
+            </div>
+
+
+            <div
+                id="documents-card"
+                class="card hidden"
+            >
+
+                <div class="card-header">
+
+                    <div class="card-icon document-icon">▤</div>
+
+                    <div>
+                        <span class="card-eyebrow">SOURCE MATERIAL</span>
+                        <h2>Product Documentation</h2>
+                    </div>
+
+                </div>
+
+                <div id="documents"></div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <div class="footer-inner">
+
+            <strong>CompareX</strong>
+
+            <span>
+                AI-powered product comparison & recommendation
+            </span>
+
+        </div>
+
+    </footer>
+
+</div>
+
+
+<script src="/static/app.js"></script>
+
+</body>
+</html>
