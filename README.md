@@ -6,6 +6,8 @@ It allows users to search, compare, and get recommendations for smartphones usin
 
 The system combines semantic product search, requirement extraction, recommendation, comparison, document retrieval, and Retrieval-Augmented Generation (RAG).
 
+
+
 ---
 <img width="1186" height="680" alt="Screenshot 2026-08-20 141740" src="https://github.com/user-attachments/assets/75f58298-8d3a-4039-b327-eb5669ba3d2e" />
 
