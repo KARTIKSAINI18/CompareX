@@ -58,5 +58,45 @@
     "rating": 4.6,
     "review_count": 1500,
     "source": "sample"
+  },
+  {
+    "product_id": "phone_004",
+    "name": "Poco X6 Pro",
+    "brand": "Poco",
+    "category": "Smartphone",
+    "description": "An excellent mid-range gaming phone offering unmatched performance under 30,000 INR.",
+    "specifications": {
+      "RAM": "8GB",
+      "Storage": "256GB",
+      "Processor": "Dimensity 8300 Ultra",
+      "Display": "6.67 inch AMOLED",
+      "Camera": "64MP main camera",
+      "Battery": "5000mAh"
+    },
+    "price": 26999,
+    "currency": "INR",
+    "rating": 4.3,
+    "review_count": 3200,
+    "source": "sample"
+  },
+  {
+    "product_id": "phone_005",
+    "name": "Nothing Phone (2a)",
+    "brand": "Nothing",
+    "category": "Smartphone",
+    "description": "A unique transparent design with clean software and balanced specs for the budget segment.",
+    "specifications": {
+      "RAM": "8GB",
+      "Storage": "128GB",
+      "Processor": "Dimensity 7200 Pro",
+      "Display": "6.7 inch AMOLED",
+      "Camera": "50MP main camera",
+      "Battery": "5000mAh"
+    },
+    "price": 23999,
+    "currency": "INR",
+    "rating": 4.5,
+    "review_count": 2150,
+    "source": "sample"
   }
 ]

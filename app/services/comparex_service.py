@@ -181,7 +181,7 @@ class CompareXService:
                 "requirements": (
                     requirements.model_dump()
                 ),
-                "candidates": candidates[
+                "products": candidates[
                     :final_limit
                 ],
                 "comparison": comparison,
@@ -204,7 +204,7 @@ class CompareXService:
                 "requirements": (
                     requirements.model_dump()
                 ),
-                "recommendations": ranked[
+                "products": ranked[
                     :final_limit
                 ],
             }

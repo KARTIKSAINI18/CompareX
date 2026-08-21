@@ -45,6 +45,8 @@ async def lifespan(app: FastAPI):
     service.close()
 
 
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI(
     title="CompareX API",
     description=(
@@ -55,24 +57,16 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-app.mount(
-    "/static",
-    StaticFiles(
-        directory=BASE_DIR / "static"
-    ),
-    name="static",
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-@app.get("/", response_class=HTMLResponse)
-def home():
-    index_file = BASE_DIR / "templates" / "index.html"
-
-    return index_file.read_text(
-        encoding="utf-8"
-    )
 
 
 

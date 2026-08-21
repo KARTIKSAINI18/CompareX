@@ -22,9 +22,9 @@ def ask(
     ),
 ):
 
-    result = service.ask(
+    result = service.answer_query(
         query=request.query,
-        limit=request.limit,
+        final_limit=request.limit,
     )
 
     return result

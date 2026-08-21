@@ -38,10 +38,6 @@ class VectorSearchService:
                     "queryVector": query_embedding,
                     "numCandidates": max(limit * 20, 100),
                     "limit": limit,
-                    "filter": {
-                        "source": "amazon_reviews_2023",
-                        "product_type": "smartphone",
-                    },
                 }
             },
             {

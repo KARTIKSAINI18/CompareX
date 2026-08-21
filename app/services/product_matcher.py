@@ -77,6 +77,27 @@ class ProductMatcher:
                 return False
 
         # ---------------------------------------------------------
+        # Price
+        # ---------------------------------------------------------
+        if requirements.max_price is not None:
+            price = product.get("price")
+            if price is not None:
+                try:
+                    if float(price) > requirements.max_price:
+                        return False
+                except (TypeError, ValueError):
+                    pass
+                    
+        if requirements.min_price is not None:
+            price = product.get("price")
+            if price is not None:
+                try:
+                    if float(price) < requirements.min_price:
+                        return False
+                except (TypeError, ValueError):
+                    pass
+
+        # ---------------------------------------------------------
         # RAM
         # ---------------------------------------------------------
         if requirements.min_ram_gb is not None:
