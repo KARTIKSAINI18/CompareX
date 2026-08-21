@@ -13,6 +13,7 @@ env/
 
 # Environment variables
 .env
+serviceAccountKey.json
 
 # IDE
 .vscode/

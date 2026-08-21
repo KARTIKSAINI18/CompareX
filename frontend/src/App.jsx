@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { useAuth } from './context/AuthContext';
+import Auth from './pages/Auth';
 
-function LandingPage({ onGetStarted }) {
+function LandingPage() {
+  const navigate = useNavigate();
+  
+  const handleGetStarted = () => {
+    navigate('/compare');
+  };
   return (
     <div className="min-h-screen flex flex-col">
       {/* TopNavBar */}
@@ -9,12 +17,12 @@ function LandingPage({ onGetStarted }) {
           <a className="text-[21px] font-extrabold text-primary tracking-tight" href="#">CompareX</a>
         </div>
         <nav className="hidden md:flex items-center gap-6">
+          <a className="text-[16px] text-primary font-bold border-b-2 border-primary pb-1 mt-1 hover:text-primary transition-colors" href="#">Home</a>
           <a className="text-[16px] text-on-surface-variant hover:text-primary transition-colors" href="#features">Features</a>
-          <a className="text-[16px] text-primary font-bold border-b-2 border-primary pb-1 mt-1 hover:text-primary transition-colors" href="#cta">Start Comparing</a>
         </nav>
         <div className="flex items-center gap-3">
-          <button className="hidden md:inline-flex items-center justify-center bg-surface-container-low text-on-surface hover:bg-surface-variant px-3 py-1.5 rounded-full text-[14px] font-bold transition-colors">Log In</button>
-          <button className="inline-flex items-center justify-center bg-on-secondary-fixed text-on-primary hover:-translate-y-px px-6 py-1.5 rounded-full text-[14px] font-bold transition-transform shadow-sm">Sign Up</button>
+          <button onClick={() => navigate('/auth', { state: { isLogin: true } })} className="hidden md:inline-flex items-center justify-center bg-surface-container-low text-on-surface hover:bg-surface-variant px-3 py-1.5 rounded-full text-[14px] font-bold transition-colors">Log In</button>
+          <button onClick={() => navigate('/auth', { state: { isLogin: false } })} className="inline-flex items-center justify-center bg-on-secondary-fixed text-on-primary hover:-translate-y-px px-6 py-1.5 rounded-full text-[14px] font-bold transition-transform shadow-sm">Sign Up</button>
         </div>
       </header>
 
@@ -25,11 +33,8 @@ function LandingPage({ onGetStarted }) {
             <h1 className="text-[38px] md:text-[58px] font-extrabold text-on-surface mb-6 max-w-3xl mx-auto tracking-tight leading-[1.08]" style={{ letterSpacing: '-2px' }}>Decide with Confidence</h1>
             <p className="text-[18px] text-on-surface-variant max-w-2xl mx-auto mb-[34px] font-normal leading-[1.35]" style={{ letterSpacing: '-0.2px' }}>Harness the power of intelligent side-by-side comparisons. Real-time data, clear specifications, and seamless visual alignment.</p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <button onClick={onGetStarted} className="w-full sm:w-auto inline-flex items-center justify-center bg-on-secondary-fixed text-on-primary hover:-translate-y-px px-[34px] py-3 rounded-full text-[14px] font-bold transition-all ambient-shadow text-lg">
+              <button onClick={handleGetStarted} className="w-full sm:w-auto inline-flex items-center justify-center bg-on-secondary-fixed text-on-primary hover:-translate-y-px px-[34px] py-3 rounded-full text-[14px] font-bold transition-all ambient-shadow text-lg">
                 Get Started Free
-              </button>
-              <button onClick={onGetStarted} className="w-full sm:w-auto inline-flex items-center justify-center bg-white border border-outline-variant text-on-surface hover:border-primary hover:text-primary px-[34px] py-3 rounded-full text-[14px] font-bold transition-colors">
-                View Example
               </button>
             </div>
           </div>
@@ -133,7 +138,7 @@ function LandingPage({ onGetStarted }) {
           <div className="max-w-3xl mx-auto text-center relative z-10 spine-accent pl-6 pr-6 py-3 bg-white rounded-xl border border-outline-variant atmospheric-shadow">
             <h2 className="text-[21px] font-bold text-on-surface mb-2 leading-[1.3]" style={{ letterSpacing: '-0.3px' }}>Ready to compare?</h2>
             <p className="text-[16px] text-on-surface-variant mb-6 leading-[1.7]">Create your first list today and make better decisions faster.</p>
-            <button onClick={onGetStarted} className="inline-flex items-center justify-center bg-on-secondary-fixed text-on-primary hover:-translate-y-px px-[34px] py-3 rounded-full text-[14px] font-bold transition-transform shadow-sm">
+            <button onClick={handleGetStarted} className="inline-flex items-center justify-center bg-on-secondary-fixed text-on-primary hover:-translate-y-px px-[34px] py-3 rounded-full text-[14px] font-bold transition-transform shadow-sm">
               Start Comparing Now
               <span className="material-symbols-outlined ml-2 text-[18px]">arrow_forward</span>
             </button>
@@ -163,12 +168,15 @@ function LandingPage({ onGetStarted }) {
   );
 }
 
-function MainPage({ onGoBack }) {
+function MainPage() {
+  const { currentUser, logout } = useAuth();
+  const navigate = useNavigate();
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
   const [showSources, setShowSources] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -180,16 +188,25 @@ function MainPage({ onGoBack }) {
     setShowSources(false);
 
     try {
-      const res = await fetch('http://127.0.0.1:8000/api/v1/ask', {
+      const token = await currentUser.getIdToken();
+      const res = await fetch('http://localhost:5000/api/ask', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({ query }),
       });
 
       if (!res.ok) {
-        throw new Error('Failed to fetch from server');
+        let errorMsg = 'Failed to fetch from server';
+        try {
+          const errData = await res.json();
+          errorMsg = errData.error || errData.detail || errorMsg;
+        } catch (e) {
+          errorMsg = `Server returned status ${res.status}`;
+        }
+        throw new Error(errorMsg);
       }
 
       const data = await res.json();
@@ -225,12 +242,59 @@ function MainPage({ onGoBack }) {
       {/* Header */}
       <header className="bg-white fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 border-b border-outline-variant shadow-sm">
         <div className="flex items-center gap-3">
-          <button onClick={onGoBack} className="flex items-center gap-2 text-[21px] font-extrabold text-primary tracking-tight hover:opacity-80 transition-opacity">
+          <button onClick={() => navigate('/')} className="flex items-center gap-2 text-[21px] font-extrabold text-primary tracking-tight hover:opacity-80 transition-opacity">
             <span className="material-symbols-outlined text-[20px]">arrow_back</span>
             CompareX
           </button>
         </div>
-        <div className="text-[13px] text-on-surface-variant">AI-Powered Comparisons</div>
+        <div className="relative">
+          <button 
+            onClick={() => setIsProfileOpen(!isProfileOpen)}
+            className="w-9 h-9 rounded-full bg-indigo-100 flex items-center justify-center border-2 border-transparent hover:border-indigo-600 transition-colors overflow-hidden"
+          >
+            {currentUser?.photoURL ? (
+              <img src={currentUser.photoURL} alt="Profile" className="w-full h-full object-cover" />
+            ) : (
+              <span className="text-indigo-600 font-bold text-[14px]">
+                {currentUser?.displayName ? currentUser.displayName.charAt(0).toUpperCase() : (currentUser?.email ? currentUser.email.charAt(0).toUpperCase() : 'U')}
+              </span>
+            )}
+          </button>
+
+          {isProfileOpen && (
+            <>
+              <div 
+                className="fixed inset-0 z-40"
+                onClick={() => setIsProfileOpen(false)}
+              ></div>
+              <div className="absolute right-0 mt-3 w-[280px] bg-white rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 border-t-[3px] border-t-indigo-600 z-50 p-6 flex flex-col items-center">
+                <div className="w-16 h-16 rounded-full bg-indigo-100 flex items-center justify-center mb-4 overflow-hidden shadow-sm">
+                  {currentUser?.photoURL ? (
+                    <img src={currentUser.photoURL} alt="Profile" className="w-full h-full object-cover" />
+                  ) : (
+                    <span className="text-indigo-600 font-bold text-[24px]">
+                      {currentUser?.displayName ? currentUser.displayName.charAt(0).toUpperCase() : (currentUser?.email ? currentUser.email.charAt(0).toUpperCase() : 'U')}
+                    </span>
+                  )}
+                </div>
+                <h3 className="text-[18px] font-bold text-gray-900 mb-1">{currentUser?.displayName || 'User'}</h3>
+                <p className="text-[13px] text-gray-500 mb-6">{currentUser?.email}</p>
+                
+                <button className="w-full py-2.5 rounded-full border border-gray-200 text-gray-800 font-bold text-[13px] flex items-center justify-center gap-2 hover:bg-gray-50 transition-colors mb-3">
+                  <span className="material-symbols-outlined text-[18px]">settings</span>
+                  Account Settings
+                </button>
+                <button 
+                  onClick={async () => { await logout(); navigate('/auth'); }}
+                  className="w-full py-2.5 rounded-full border border-red-300 text-red-600 font-bold text-[13px] flex items-center justify-center gap-2 hover:bg-red-50 transition-colors"
+                >
+                  <span className="material-symbols-outlined text-[18px]">logout</span>
+                  Sign Out
+                </button>
+              </div>
+            </>
+          )}
+        </div>
       </header>
 
       <main className="flex-grow pt-24 pb-12 px-6">
@@ -427,17 +491,22 @@ function MainPage({ onGoBack }) {
   );
 }
 
-function App() {
-  const [currentPage, setCurrentPage] = useState('landing');
+function PrivateRoute({ children }) {
+  const { currentUser } = useAuth();
+  return currentUser ? children : <Navigate to="/auth" />;
+}
 
+function App() {
   return (
-    <>
-      {currentPage === 'landing' ? (
-        <LandingPage onGetStarted={() => setCurrentPage('main')} />
-      ) : (
-        <MainPage onGoBack={() => setCurrentPage('landing')} />
-      )}
-    </>
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/auth" element={<Auth />} />
+      <Route path="/compare" element={
+        <PrivateRoute>
+          <MainPage />
+        </PrivateRoute>
+      } />
+    </Routes>
   );
 }
 
